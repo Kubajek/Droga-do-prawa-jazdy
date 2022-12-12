@@ -31,64 +31,164 @@ namespace Projekt_JPWP
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.txtScore = new System.Windows.Forms.Label();
+            this.txtHighScore = new System.Windows.Forms.Label();
+            this.txtScoreInt = new System.Windows.Forms.Label();
+            this.txtHighScoreInt = new System.Windows.Forms.Label();
+            this.gameOverText = new System.Windows.Forms.Label();
+            this.restartButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.picCanvas = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // gameTimer
             // 
-            this.button1.Location = new System.Drawing.Point(672, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 50);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "START";
-            this.button1.UseVisualStyleBackColor = true;
+            this.gameTimer.Enabled = true;
+            this.gameTimer.Interval = 20;
+            this.gameTimer.Tick += new System.EventHandler(this.TimerEvent);
+            // 
+            // txtScore
+            // 
+            this.txtScore.Font = new System.Drawing.Font("Silkscreen Expanded", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtScore.Location = new System.Drawing.Point(794, 665);
+            this.txtScore.Name = "txtScore";
+            this.txtScore.Size = new System.Drawing.Size(110, 25);
+            this.txtScore.TabIndex = 2;
+            this.txtScore.Text = "Score:";
+            this.txtScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txtScore.Click += new System.EventHandler(this.txtScore_Click);
+            // 
+            // txtHighScore
+            // 
+            this.txtHighScore.Font = new System.Drawing.Font("Silkscreen Expanded", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHighScore.Location = new System.Drawing.Point(794, 690);
+            this.txtHighScore.Name = "txtHighScore";
+            this.txtHighScore.Size = new System.Drawing.Size(110, 25);
+            this.txtHighScore.TabIndex = 2;
+            this.txtHighScore.Text = "HighScore:";
+            this.txtHighScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txtHighScore.Click += new System.EventHandler(this.txtScore_Click);
+            // 
+            // txtScoreInt
+            // 
+            this.txtScoreInt.Font = new System.Drawing.Font("Silkscreen Expanded", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtScoreInt.Location = new System.Drawing.Point(906, 665);
+            this.txtScoreInt.Name = "txtScoreInt";
+            this.txtScoreInt.Size = new System.Drawing.Size(40, 25);
+            this.txtScoreInt.TabIndex = 2;
+            this.txtScoreInt.Text = "0";
+            this.txtScoreInt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.txtScoreInt.Click += new System.EventHandler(this.txtScore_Click);
+            // 
+            // txtHighScoreInt
+            // 
+            this.txtHighScoreInt.Font = new System.Drawing.Font("Silkscreen Expanded", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHighScoreInt.Location = new System.Drawing.Point(906, 690);
+            this.txtHighScoreInt.Name = "txtHighScoreInt";
+            this.txtHighScoreInt.Size = new System.Drawing.Size(40, 25);
+            this.txtHighScoreInt.TabIndex = 2;
+            this.txtHighScoreInt.Text = "0";
+            this.txtHighScoreInt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.txtHighScoreInt.Click += new System.EventHandler(this.txtScore_Click);
+            // 
+            // gameOverText
+            // 
+            this.gameOverText.AutoSize = true;
+            this.gameOverText.Enabled = false;
+            this.gameOverText.Font = new System.Drawing.Font("Silkscreen", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameOverText.ForeColor = System.Drawing.Color.Red;
+            this.gameOverText.Location = new System.Drawing.Point(123, 338);
+            this.gameOverText.Name = "gameOverText";
+            this.gameOverText.Size = new System.Drawing.Size(489, 57);
+            this.gameOverText.TabIndex = 3;
+            this.gameOverText.Text = "GAME OVER";
+            this.gameOverText.Visible = false;
+            // 
+            // restartButton
+            // 
+            this.restartButton.BackColor = System.Drawing.Color.Transparent;
+            this.restartButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.restartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.restartButton.Font = new System.Drawing.Font("Silkscreen", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.restartButton.Image = ((System.Drawing.Image)(resources.GetObject("restartButton.Image")));
+            this.restartButton.Location = new System.Drawing.Point(796, 93);
+            this.restartButton.Name = "restartButton";
+            this.restartButton.Size = new System.Drawing.Size(150, 75);
+            this.restartButton.TabIndex = 0;
+            this.restartButton.Text = "RESTART";
+            this.restartButton.UseVisualStyleBackColor = false;
+            this.restartButton.Click += new System.EventHandler(this.restartButton_Click);
+            this.restartButton.MouseLeave += new System.EventHandler(this.restartButton_MouseLeave);
+            this.restartButton.MouseHover += new System.EventHandler(this.restartButton_MouseHover);
             // 
             // startButton
             // 
             this.startButton.BackColor = System.Drawing.Color.Transparent;
-            this.startButton.Image = ((System.Drawing.Image)(resources.GetObject("startButton.Image")));
-            this.startButton.Location = new System.Drawing.Point(672, 12);
+            this.startButton.BackgroundImage = global::Projekt_JPWP.Properties.Resources.buttonEmpty_150x75;
+            this.startButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startButton.Font = new System.Drawing.Font("Silkscreen", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startButton.Location = new System.Drawing.Point(796, 12);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(100, 50);
+            this.startButton.Size = new System.Drawing.Size(150, 75);
             this.startButton.TabIndex = 0;
+            this.startButton.Text = "START";
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.startButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.StartGame);
+            this.startButton.MouseLeave += new System.EventHandler(this.startButton_MouseLeave);
+            this.startButton.MouseHover += new System.EventHandler(this.startButton_MouseHover);
             // 
-            // button3
+            // picCanvas
             // 
-            this.button3.Location = new System.Drawing.Point(672, 68);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 50);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "RESTART";
-            this.button3.UseVisualStyleBackColor = true;
+            this.picCanvas.BackColor = System.Drawing.Color.DarkGray;
+            this.picCanvas.Image = ((System.Drawing.Image)(resources.GetObject("picCanvas.Image")));
+            this.picCanvas.Location = new System.Drawing.Point(12, 12);
+            this.picCanvas.Name = "picCanvas";
+            this.picCanvas.Size = new System.Drawing.Size(705, 705);
+            this.picCanvas.TabIndex = 1;
+            this.picCanvas.TabStop = false;
+            this.picCanvas.Click += new System.EventHandler(this.picCanvas_Click);
+            this.picCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.UpdateGraphics);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.button3);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.gameOverText);
+            this.Controls.Add(this.txtHighScore);
+            this.Controls.Add(this.txtHighScoreInt);
+            this.Controls.Add(this.txtScoreInt);
+            this.Controls.Add(this.txtScore);
+            this.Controls.Add(this.restartButton);
             this.Controls.Add(this.startButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.picCanvas);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Droga do prawa jazdy";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button restartButton;
+        private System.Windows.Forms.PictureBox picCanvas;
+        private System.Windows.Forms.Label txtScore;
+        private System.Windows.Forms.Label txtHighScore;
+        private System.Windows.Forms.Label txtScoreInt;
+        private System.Windows.Forms.Label txtHighScoreInt;
+        private System.Windows.Forms.Label gameOverText;
     }
 }
 
