@@ -40,6 +40,7 @@ namespace Projekt_JPWP
             this.restartButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
             this.picCanvas = new System.Windows.Forms.PictureBox();
+            this.menuButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +59,6 @@ namespace Projekt_JPWP
             this.txtScore.TabIndex = 2;
             this.txtScore.Text = "Score:";
             this.txtScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.txtScore.Click += new System.EventHandler(this.txtScore_Click);
             // 
             // txtHighScore
             // 
@@ -69,7 +69,6 @@ namespace Projekt_JPWP
             this.txtHighScore.TabIndex = 2;
             this.txtHighScore.Text = "HighScore:";
             this.txtHighScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.txtHighScore.Click += new System.EventHandler(this.txtScore_Click);
             // 
             // txtScoreInt
             // 
@@ -80,7 +79,6 @@ namespace Projekt_JPWP
             this.txtScoreInt.TabIndex = 2;
             this.txtScoreInt.Text = "0";
             this.txtScoreInt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.txtScoreInt.Click += new System.EventHandler(this.txtScore_Click);
             // 
             // txtHighScoreInt
             // 
@@ -91,7 +89,6 @@ namespace Projekt_JPWP
             this.txtHighScoreInt.TabIndex = 2;
             this.txtHighScoreInt.Text = "0";
             this.txtHighScoreInt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.txtHighScoreInt.Click += new System.EventHandler(this.txtScore_Click);
             // 
             // gameOverText
             // 
@@ -137,7 +134,6 @@ namespace Projekt_JPWP
             this.startButton.Text = "START";
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
-            this.startButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.StartGame);
             this.startButton.MouseLeave += new System.EventHandler(this.startButton_MouseLeave);
             this.startButton.MouseHover += new System.EventHandler(this.startButton_MouseHover);
             // 
@@ -150,8 +146,21 @@ namespace Projekt_JPWP
             this.picCanvas.Size = new System.Drawing.Size(705, 705);
             this.picCanvas.TabIndex = 1;
             this.picCanvas.TabStop = false;
-            this.picCanvas.Click += new System.EventHandler(this.picCanvas_Click);
-            this.picCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.UpdateGraphics);
+            // 
+            // menuButton
+            // 
+            this.menuButton.BackColor = System.Drawing.Color.Transparent;
+            this.menuButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.menuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.menuButton.Font = new System.Drawing.Font("Silkscreen", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuButton.Image = ((System.Drawing.Image)(resources.GetObject("menuButton.Image")));
+            this.menuButton.Location = new System.Drawing.Point(796, 566);
+            this.menuButton.Name = "menuButton";
+            this.menuButton.Size = new System.Drawing.Size(150, 75);
+            this.menuButton.TabIndex = 4;
+            this.menuButton.Text = "MENU";
+            this.menuButton.UseVisualStyleBackColor = false;
+            this.menuButton.Click += new System.EventHandler(this.menuButton_Click);
             // 
             // Form1
             // 
@@ -159,18 +168,20 @@ namespace Projekt_JPWP
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.menuButton);
+            this.Controls.Add(this.startButton);
             this.Controls.Add(this.gameOverText);
             this.Controls.Add(this.txtHighScore);
             this.Controls.Add(this.txtHighScoreInt);
             this.Controls.Add(this.txtScoreInt);
             this.Controls.Add(this.txtScore);
             this.Controls.Add(this.restartButton);
-            this.Controls.Add(this.startButton);
             this.Controls.Add(this.picCanvas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Droga do prawa jazdy";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).EndInit();
             this.ResumeLayout(false);
@@ -189,6 +200,7 @@ namespace Projekt_JPWP
         private System.Windows.Forms.Label txtScoreInt;
         private System.Windows.Forms.Label txtHighScoreInt;
         private System.Windows.Forms.Label gameOverText;
+        private System.Windows.Forms.Button menuButton;
     }
 }
 

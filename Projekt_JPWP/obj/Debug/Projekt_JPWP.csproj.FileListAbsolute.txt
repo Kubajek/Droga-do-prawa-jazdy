@@ -8,3 +8,4 @@ D:\Studia\Języki programowania wysokiego poziomu\Projekt\Projekt_JPWP\obj\Debug
 D:\Studia\Języki programowania wysokiego poziomu\Projekt\Projekt_JPWP\obj\Debug\Projekt_JPWP.csproj.CoreCompileInputs.cache
 D:\Studia\Języki programowania wysokiego poziomu\Projekt\Projekt_JPWP\obj\Debug\Projekt_JPWP.exe
 D:\Studia\Języki programowania wysokiego poziomu\Projekt\Projekt_JPWP\obj\Debug\Projekt_JPWP.pdb
+D:\Studia\Języki programowania wysokiego poziomu\Projekt\Projekt_JPWP\obj\Debug\Projekt_JPWP.MainMenu.resources

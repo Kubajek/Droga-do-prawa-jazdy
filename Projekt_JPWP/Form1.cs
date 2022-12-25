@@ -12,19 +12,23 @@ namespace Projekt_JPWP
 {
     public partial class Form1 : Form
     {
+        private MainMenu mainMenu;
+
         public const int START_POINTS = 4;
         public const int DESTINATION_POINTS = 4;
+        public const int CAR_SPAWN_INTERVAL = 1; //time in seconds
 
         public int carID = 0;
         public bool gameStarted = false;
 
         public int score = 0;
         public int highScore = 0; //docelowo czytane z pliku
+         
+        public int carSpawnTimer = 0;
 
         Random rand = new Random();
         List<PictureBox> carsPic = new List<PictureBox>();
         List<Car> carsObj = new List<Car>();
-
 
         public Form1()
         {
@@ -37,88 +41,24 @@ namespace Projekt_JPWP
             restartButton.FlatAppearance.BorderSize = 0;
         }
 
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            gameStarted = true;
-            SpawnCar();
-        }
-
-        private void txtScore_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void StartGame(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void UpdateGraphics(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void SpawnCar()
-        {
-            Car carObj = new Car();
-            PictureBox carPic = new PictureBox();
-
-            carObj.Start = rand.Next(0, START_POINTS*100)%4;
-            carObj.Stopped = false;
-            carObj.ID = carID;
-            carObj.set();
-
-            //seting up a picture of a car
-            if (carObj.Start == 0 || carObj.Start == 2)  //horizontal movement
-            {
-                carPic.Width = Car.CAR_LENGHT;
-                carPic.Height = Car.CAR_WIDTH;
-            }
-            if (carObj.Start == 1 || carObj.Start == 3) //vertical movement
-            {
-                carPic.Width = Car.CAR_WIDTH;
-                carPic.Height = Car.CAR_LENGHT;
-            }
-            carPic.BackColor = Color.Red;
-            carPic.Location = new Point(carObj.X, carObj.Y);
-            //
-
-            carsObj.Add(carObj);
-            carsPic.Add(carPic);
-
-            carPic.Click += CarPic_Click;
-
-            Console.WriteLine(carPic.Location);
-
-            this.Controls.Add(carPic);
-            carPic.BringToFront();
-            carID++;
-        }
-
-        private void CarPic_Click(object sender, EventArgs e)
-        {
-            PictureBox temPic = sender as PictureBox;
-            int index = carsPic.IndexOf(temPic);
-            carsObj[index].Stopped = !carsObj[index].Stopped;
-            Console.WriteLine("Klik! " + carsObj[index].ID);
-        }
-
+        //Main game loop
         private void TimerEvent(object sender, EventArgs e)
         {
+            //=====================Handling cars==========================================
             for (int i = carsObj.Count - 1; i>=0; i--)
             {
+                //-----checking fo collisions------
                 for (int j = i - 1; j >= 0; j--)
                 {
                     if (carsPic[i].Bounds.IntersectsWith(carsPic[j].Bounds) && (i != j))
                     {
-                        Console.WriteLine("Kolizja " + carsObj[i].ID + " i " + carsObj[j].ID);
-                        gameOver();
+                        GameOver();
                     }
                 }
 
+                //-----checking if car hit edge of map------
                 if (carsObj[i].ifOutOfBound())
                 {
-                    //Console.WriteLine(carsObj[i].ID + ", znikam");
                     carsObj.RemoveAt(i);
                     this.Controls.Remove(carsPic[i]);
                     carsPic.RemoveAt(i);
@@ -126,17 +66,31 @@ namespace Projekt_JPWP
                     score++;
                     txtScoreInt.Text = score.ToString();
                 }
+                //-----handling car movement-----
                 else if (!carsObj[i].Stopped && gameStarted)
                 {
                     carsObj[i].move();
                     carsPic[i].Location = new Point(carsObj[i].X, carsObj[i].Y);
                 }
             }
+            //============================================================================
+
+            if (gameStarted)
+            {
+                carSpawnTimer++;
+                if (carSpawnTimer == CAR_SPAWN_INTERVAL / (gameTimer.Interval * 0.001)) 
+                { 
+                    SpawnCar(); 
+                    carSpawnTimer = 0; 
+                }
+            }
         }
 
-        private void picCanvas_Click(object sender, EventArgs e)
+        private void startButton_Click(object sender, EventArgs e)
         {
-
+            gameStarted = true;
+            SpawnCar();
+            startButton.Enabled = false;
         }
 
         private void restartButton_Click(object sender, EventArgs e)
@@ -152,15 +106,63 @@ namespace Projekt_JPWP
             carID = 0;
             score = 0;
             txtScoreInt.Text = "0";
+
+            startButton.Enabled = true;
         }
 
-        private void gameOver()
+        private void GameOver()
         {
             gameStarted = false;
             gameOverText.BringToFront();
             gameOverText.Visible = true;
             if(score > highScore) { highScore = score; }
             txtHighScoreInt.Text = highScore.ToString();
+        }
+
+        private void SpawnCar()
+        {
+            Car carObj = new Car();
+            PictureBox carPic = new PictureBox();
+
+            carObj.Start = rand.Next(0, START_POINTS * 100) % 4; //Randomly choosing starting point of a car
+            carObj.Stopped = false;
+            carObj.ID = carID;
+            carObj.set();
+
+            //==============seting up a picture of a car========================
+            if (carObj.Start == 0 || carObj.Start == 2)  //horizontal movement
+            {
+                carPic.Width = Car.CAR_LENGHT;
+                carPic.Height = Car.CAR_WIDTH;
+            }
+            if (carObj.Start == 1 || carObj.Start == 3) //vertical movement
+            {
+                carPic.Width = Car.CAR_WIDTH;
+                carPic.Height = Car.CAR_LENGHT;
+            }
+            carPic.BackColor = Color.Red; //<-- change to image
+            carPic.Location = new Point(carObj.X, carObj.Y);
+            //==================================================================
+
+            carsObj.Add(carObj);
+            carsPic.Add(carPic);
+
+            carPic.Click += CarPic_Click;
+
+            Console.WriteLine(carPic.Location);
+
+            this.Controls.Add(carPic);
+            carPic.BringToFront();
+            carID++;
+        }
+
+        //Stopping car when clicked
+        private void CarPic_Click(object sender, EventArgs e)
+        {
+            PictureBox temPic = sender as PictureBox;
+            int index = carsPic.IndexOf(temPic);
+            carsObj[index].Stopped = !carsObj[index].Stopped;
+            //Console.WriteLine("Klik! " + carsObj[index].ID);
         }
 
 
@@ -184,6 +186,24 @@ namespace Projekt_JPWP
         private void restartButton_MouseLeave(object sender, EventArgs e)
         {
             restartButton.Image = Properties.Resources.buttonEmpty_150x75;
+        }
+        //=========================================================================
+
+        //===============Handling closing app======================================
+        public void Show(MainMenu menu)
+        {
+            mainMenu = menu;
+            this.Show();
+        }
+
+        private void menuButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mainMenu.Show();
         }
         //=========================================================================
     }
