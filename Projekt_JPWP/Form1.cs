@@ -79,7 +79,8 @@ namespace Projekt_JPWP
             {
                 carSpawnTimer++;
                 if (carSpawnTimer == CAR_SPAWN_INTERVAL / (gameTimer.Interval * 0.001)) 
-                { 
+                {
+
                     SpawnCar(); 
                     carSpawnTimer = 0; 
                 }
@@ -121,10 +122,53 @@ namespace Projekt_JPWP
 
         private void SpawnCar()
         {
+            int[] carsAtSpawnPos = {0,0,0,0};
+            bool[] tooManyCarsAtPos = {false,false,false,false};
+
+            int startPos;
+
+            //making sure that not too many cars will spawn at once in the same place
+            //==================================================================
+            for (int i = carsObj.Count - 1; i >= 0; i--)
+            {
+                if (carsPic[i].Bounds.IntersectsWith(spawnPos0.Bounds))
+                {
+                    carsAtSpawnPos[0]++;
+                }
+                if (carsPic[i].Bounds.IntersectsWith(spawnPos1.Bounds))
+                {
+                    carsAtSpawnPos[1]++;
+                }
+                if (carsPic[i].Bounds.IntersectsWith(spawnPos2.Bounds))
+                {
+                    carsAtSpawnPos[2]++;
+                }
+                if (carsPic[i].Bounds.IntersectsWith(spawnPos3.Bounds))
+                {
+                    carsAtSpawnPos[3]++;
+                }
+            }
+            for (int j = 3; j >= 0; j--)
+            {
+                if(carsAtSpawnPos[j] >= 2)
+                {
+                    tooManyCarsAtPos[j] = true;
+                }
+            }
+
+            //prevent freezing game if all the spots are taken
+            if(tooManyCarsAtPos[0] && tooManyCarsAtPos[1] && tooManyCarsAtPos[2] && tooManyCarsAtPos[3])
+            { return; }
+
+            do  
+            {
+                startPos = rand.Next(0, START_POINTS * 100) % 4; //Randomly choosing starting point of a car
+            } while (tooManyCarsAtPos[startPos]);
+            //==================================================================
             Car carObj = new Car();
             PictureBox carPic = new PictureBox();
 
-            carObj.Start = rand.Next(0, START_POINTS * 100) % 4; //Randomly choosing starting point of a car
+            carObj.Start = startPos;
             carObj.Stopped = false;
             carObj.ID = carID;
             carObj.set();
@@ -149,7 +193,7 @@ namespace Projekt_JPWP
 
             carPic.Click += CarPic_Click;
 
-            Console.WriteLine(carPic.Location);
+            //Console.WriteLine(carPic.Location);
 
             this.Controls.Add(carPic);
             carPic.BringToFront();
@@ -162,7 +206,6 @@ namespace Projekt_JPWP
             PictureBox temPic = sender as PictureBox;
             int index = carsPic.IndexOf(temPic);
             carsObj[index].Stopped = !carsObj[index].Stopped;
-            //Console.WriteLine("Klik! " + carsObj[index].ID);
         }
 
 

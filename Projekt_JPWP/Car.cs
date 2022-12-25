@@ -8,10 +8,10 @@ namespace Projekt_JPWP
 {
     class Car
     {
-        public const int CAR_LENGHT = 100;
-        public const int CAR_WIDTH = 50;
+        public const int CAR_LENGHT = 75;
+        public const int CAR_WIDTH = 40;
 
-        private const int SPEED = 4;  //Car speed
+        private const int SPEED = 3;  //Car speed
         public int X { get; set; }      //
         public int Y { get; set; }      //coordinates of car
         public int Start { get; set; }
@@ -70,7 +70,7 @@ namespace Projekt_JPWP
                 Y = 707;
             }
 
-            Console.WriteLine(ID + ", " + Start + ", pojawiam sie");
+            //Console.WriteLine(ID + ", " + Start + ", pojawiam sie");
         }
 
         public bool ifOutOfBound()

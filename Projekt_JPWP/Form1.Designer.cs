@@ -41,7 +41,15 @@ namespace Projekt_JPWP
             this.startButton = new System.Windows.Forms.Button();
             this.picCanvas = new System.Windows.Forms.PictureBox();
             this.menuButton = new System.Windows.Forms.Button();
+            this.spawnPos3 = new System.Windows.Forms.PictureBox();
+            this.spawnPos1 = new System.Windows.Forms.PictureBox();
+            this.spawnPos0 = new System.Windows.Forms.PictureBox();
+            this.spawnPos2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spawnPos3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spawnPos1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spawnPos0)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spawnPos2)).BeginInit();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -162,12 +170,56 @@ namespace Projekt_JPWP
             this.menuButton.UseVisualStyleBackColor = false;
             this.menuButton.Click += new System.EventHandler(this.menuButton_Click);
             // 
+            // spawnPos3
+            // 
+            this.spawnPos3.BackColor = System.Drawing.Color.Red;
+            this.spawnPos3.Location = new System.Drawing.Point(367, 483);
+            this.spawnPos3.Name = "spawnPos3";
+            this.spawnPos3.Size = new System.Drawing.Size(117, 234);
+            this.spawnPos3.TabIndex = 5;
+            this.spawnPos3.TabStop = false;
+            this.spawnPos3.Visible = false;
+            // 
+            // spawnPos1
+            // 
+            this.spawnPos1.BackColor = System.Drawing.Color.Red;
+            this.spawnPos1.Location = new System.Drawing.Point(246, 12);
+            this.spawnPos1.Name = "spawnPos1";
+            this.spawnPos1.Size = new System.Drawing.Size(120, 237);
+            this.spawnPos1.TabIndex = 6;
+            this.spawnPos1.TabStop = false;
+            this.spawnPos1.Visible = false;
+            // 
+            // spawnPos0
+            // 
+            this.spawnPos0.BackColor = System.Drawing.Color.Red;
+            this.spawnPos0.Location = new System.Drawing.Point(12, 365);
+            this.spawnPos0.Name = "spawnPos0";
+            this.spawnPos0.Size = new System.Drawing.Size(237, 120);
+            this.spawnPos0.TabIndex = 7;
+            this.spawnPos0.TabStop = false;
+            this.spawnPos0.Visible = false;
+            // 
+            // spawnPos2
+            // 
+            this.spawnPos2.BackColor = System.Drawing.Color.Red;
+            this.spawnPos2.Location = new System.Drawing.Point(482, 247);
+            this.spawnPos2.Name = "spawnPos2";
+            this.spawnPos2.Size = new System.Drawing.Size(235, 118);
+            this.spawnPos2.TabIndex = 8;
+            this.spawnPos2.TabStop = false;
+            this.spawnPos2.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.spawnPos2);
+            this.Controls.Add(this.spawnPos0);
+            this.Controls.Add(this.spawnPos1);
+            this.Controls.Add(this.spawnPos3);
             this.Controls.Add(this.menuButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.gameOverText);
@@ -184,6 +236,10 @@ namespace Projekt_JPWP
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spawnPos3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spawnPos1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spawnPos0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spawnPos2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,6 +257,10 @@ namespace Projekt_JPWP
         private System.Windows.Forms.Label txtHighScoreInt;
         private System.Windows.Forms.Label gameOverText;
         private System.Windows.Forms.Button menuButton;
+        private System.Windows.Forms.PictureBox spawnPos3;
+        private System.Windows.Forms.PictureBox spawnPos1;
+        private System.Windows.Forms.PictureBox spawnPos0;
+        private System.Windows.Forms.PictureBox spawnPos2;
     }
 }
 
